@@ -130,6 +130,7 @@ form button {
   font-weight: bold;
   font-size: 16px;
   cursor: pointer;
+  list-style: none;
 }
 
 .divider {
