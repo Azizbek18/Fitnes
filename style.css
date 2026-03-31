@@ -133,6 +133,11 @@ form button {
   list-style: none;
 }
 
+form a{
+  text-decoration: none;
+  color: white;
+}
+
 .divider {
   text-align: center;
   margin: 25px 0;

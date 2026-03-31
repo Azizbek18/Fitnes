@@ -25,16 +25,27 @@ body {
 }
 
 .logo {
-  font-size: 22px;
+  width: 40px;
+  height: 40px;
+  background: orange;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
   font-weight: bold;
-  margin-bottom: 40px;
 }
 
 .sidebar nav a {
-  display: block;
   margin: 20px 0;
-  font-size: 18px;
-  color: #aaa;
+  width: 30px;
+  padding: 20px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10px;
+  font-size: 20px;
   cursor: pointer;
 }
 
