@@ -39,9 +39,15 @@ body {
   list-style: none;
   margin-top: 40px;
 }
-
-.sidebar li {
+.sidebar a {
   margin: 20px 0;
+  width: 30px;
+  padding: 20px;
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 10px;
   font-size: 20px;
   cursor: pointer;
 }
