@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <title>FItnes</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <link rel="stylesheet" href="royxatdanotish.css">
 </head>
 
 <body>
@@ -29,26 +30,33 @@
         </div>
 
         <div class="right">
-            <h2>Qaytib keling!</h2>
+            <h2>Royxatdan oting!</h2>
             <p class="sub">Bugungi mashqingizni kutmoqdamiz</p>
 
             <form>
-               <div class="email">
-                 <label>Elektron pochta</label>
-               </div>
-               <input type="email" id="email" placeholder="misol@fittrack.uz">
+                <div class="email">
+                    <label>Elektron pochta</label>
+                </div>
+                <input type="email" id="email" placeholder="misol@fittrack.uz">
 
                 <div class="row">
                     <label>Parol</label>
                     <a href="">Parolni unutdingizmi?</a>
                 </div>
                 <input type="password" id="password" placeholder="********">
+                <div class="row">
+                    <label>Parol tasdiqlang</label>
+                </div>
+                <input type="password" placeholder="********">
 
-                <button onclick="Yuborish()" type="button">Kirish</button>
+
+                <button type="button" onclick="Yuborish()">Royxatdan otish →</button>
             </form>
-    </div>
+        </div>
 
     </div>
+
+    <script src="kirish.js"></script>
 </body>
 
 </html>
