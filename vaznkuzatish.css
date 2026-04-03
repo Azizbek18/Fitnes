@@ -247,3 +247,26 @@ td {
   font-size: 24px;
   color: #aaa;
 }
+
+@media (max-width: 950px) {
+  .cards, .middle, .bottom {
+    flex-direction: column;
+  }
+  .table {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .chart-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .photo-list {
+    justify-content: center;
+  }
+  table th, table td {
+    font-size: 12px;
+    padding: 8px 4px;
+  }
+}

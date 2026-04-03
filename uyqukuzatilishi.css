@@ -198,3 +198,29 @@ button {
     gap: 10px;
     margin-top: 10px;
 }
+
+@media (max-width: 800px) {
+  .cards, .middle, .bottom {
+    flex-direction: column;
+  }
+  .card {
+    width: 100%;
+  }
+  .chart-bars {
+    justify-content: space-between;
+  }
+  .day {
+    width: 12%;
+  }
+}
+
+@media (max-width: 450px) {
+  .circle {
+    width: 100px;
+    height: 100px;
+  }
+  .stats {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}

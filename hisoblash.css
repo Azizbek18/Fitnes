@@ -249,3 +249,30 @@ body {
     border-radius: 16px;
     font-size: 14px;
 }
+
+@media (max-width: 850px) {
+  .content {
+    flex-direction: column;
+  }
+  .right {
+    order: -1;
+    margin-bottom: 20px;
+  }
+  .circle-card {
+    max-width: 300px;
+    margin: 0 auto 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .search {
+    flex-direction: column;
+  }
+  .cups {
+    justify-content: space-around;
+  }
+  .cup {
+    width: 60px;
+    height: 60px;
+  }
+}
