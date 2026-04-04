@@ -238,3 +238,35 @@ body {
   font-size: 13px;
   color: #666;
 }
+
+@media (max-width: 1024px) {
+  .top-cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+  }
+  .sidebar {
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    padding: 10px 20px;
+  }
+  .sidebar nav {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+  }
+  .sidebar nav a {
+    margin: 0;
+  }
+  .content {
+    flex-direction: column;
+  }
+  .top-cards {
+    grid-template-columns: 1fr;
+  }
+}

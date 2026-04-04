@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uz">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Vazn Kuzatish</title>
+  <link rel="stylesheet" href="vaznkuzatish.css">
+</head>
+
+<body>
+
+  <div class="app">
+
+    <aside class="sidebar">
+      <div class="logo">F</div>
+      <nav>
+        <a href="dashboard.html"><img src="./Container.svg" alt="Dashboard"></a>
+        <a href="mashqrejasi.html"><img src="./Container (1).svg" alt="Plans"></a>
+        <a href="hisoblash.html" class="active"><img src="./Container (2).svg" alt="Calories"></a>
+        <a href="vaznkuzatish.html"><img src="./Container (3).svg" alt="Weight"></a>
+        <a href="uyqukuzatilishi.html"><img src="./Container (5).svg" alt="Sleep"></a>
+      </nav>
+    </aside>
+    <main class="content">
+
+      <header class="header">
+        <h1>VAZN KUZATISH</h1>
+
+        <div class="header-right">
+          <span class="badge">🔥 5 kun</span>
+          <div class="avatar"></div>
+        </div>
+      </header>
+
+      <section class="cards">
+
+        <div class="card">
+          <p>HOZIRGI VAZN</p>
+          <h2>78 <span>kg</span></h2>
+        </div>
+
+        <div class="card">
+          <p>MAQSAD</p>
+          <h2>72 <span>kg</span></h2>
+
+          <div class="progress">
+            <div class="progress-bar"></div>
+          </div>
+
+          <small>-6kg qoldi</small>
+        </div>
+
+        <div class="card">
+          <p>BMI KO'RSATKICHI</p>
+          <h2>24.1 <span class="status">NORMAL</span></h2>
+        </div>
+
+      </section>
+
+      <section class="middle">
+
+        <div class="card chart">
+          <div class="chart-header">
+            <h3>Vazn O'zgarishi Dinamikasi</h3>
+            <div class="tabs">
+              <span class="active">3 oy</span>
+              <span>6 oy</span>
+              <span>Yil</span>
+            </div>
+          </div>
+
+          <div class="chart-area">
+            <svg viewBox="0 0 300 120">
+              <path d="M0 80 Q50 60 100 90 T200 70 T300 85" fill="none" stroke="#ff5a1f" stroke-width="3" />
+            </svg>
+          </div>
+        </div>
+
+        <div class="card form">
+          <h3>Bugungi vaznni kiriting</h3>
+
+          <label>Vazn (kg)</label>
+          <input type="text" placeholder="00.0">
+
+          <label>Izoh</label>
+          <textarea placeholder="Kayfiyat, ovqatlanish..."></textarea>
+
+          <button>Saqlash</button>
+        </div>
+
+      </section>
+
+      <section class="bottom">
+
+        <div class="card table">
+          <h3>Oxirgi yozuvlar</h3>
+
+          <table>
+            <tr>
+              <th>Sana</th>
+              <th>Vazn</th>
+              <th>O'zgarish</th>
+              <th>Izoh</th>
+            </tr>
+
+            <tr>
+              <td>12 Noyabr</td>
+              <td>78.0 kg</td>
+              <td class="plus">+0.2</td>
+              <td>Kechki ovqatdan keyin</td>
+            </tr>
+
+            <tr>
+              <td>10 Noyabr</td>
+              <td>77.8 kg</td>
+              <td class="minus">-0.5</td>
+              <td>Ertalabki o'lchov</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="card photos">
+          <h3>Progress Fotolar</h3>
+
+          <div class="photo-list">
+            <div class="photo"></div>
+            <div class="photo"></div>
+            <div class="photo add">+</div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+  </div>
+  <script src="vaznkuzatilishi.js"></script>
+</body>
+
+</html>
