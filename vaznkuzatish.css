@@ -57,10 +57,6 @@ body {
   cursor: pointer;
 }
 
-.sidebar nav .active {
-  background: #ffe8df;
-}
-
 .content {
   flex: 1;
   padding: 25px;

@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Kaloriya Hisoblagich</title>
     <link rel="stylesheet" href="hisoblash.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -38,12 +39,12 @@
                 <div class="left">
 
                     <div class="search">
-                        <input type="text" placeholder="Ovqat qidiring...">
+                        <input id="ovqat" type="text" placeholder="Ovqat qidiring...">
                         <button>+ Qo‘shish</button>
                     </div>
 
                     <div class="card">
-                        <div class="card-title">
+                        <div class="card-title" id="kaloriya">
                             <h3>Nonushta</h3>
                             <span><b>420 kcal</b></span>
                         </div>

@@ -49,11 +49,7 @@ body {
     height: 10px;
     font-size: 20px;
     cursor: pointer;
-}
-
-.sidebar .active {
-    background: #ffe8df;
-}
+}   
 
 .content {
     flex: 1;
