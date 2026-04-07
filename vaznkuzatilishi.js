@@ -1,3 +1,22 @@
+const xabarCon = document.querySelector(".xabar-con");
+
+function xabarnoma(xabar, turi) {
+    if (!xabarCon) return;
+
+    let xabarMatn = document.createElement('div');
+    xabarMatn.classList.add("xabar", turi);
+    xabarMatn.innerText = xabar;
+
+    xabarCon.appendChild(xabarMatn);
+
+    setTimeout(() => {
+        xabarMatn.style.opacity = '0';
+        xabarMatn.style.transform = 'translateX(20px)';
+        xabarMatn.style.transition = '0.5s all ease';
+        setTimeout(() => xabarMatn.remove(), 500);
+    }, 4000);
+}
+
 const SUPABASE_URL = 'https://olerglrehwbfolrsyzzo.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_9oYVfdjz9tqko55o9EZjdQ_AXWhvvhu';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -25,11 +44,10 @@ document.addEventListener('DOMContentLoaded', () => {
     saveBtn.addEventListener('click', async () => {
         const weightValue = weightInput.value.trim();
         const comment = commentInput.value.trim();
-        
         const dateStr = new Date().toLocaleDateString('uz-UZ', { day: 'numeric', month: 'long' });
 
         if (!weightValue) {
-            alert("Iltimos, vazningizni kiriting!");
+            xabarnoma("Iltimos, vazningizni kiriting! ⚠️", "error");
             return;
         }
 
@@ -52,7 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error) throw error;
 
-            alert("Muvaffaqiyatli saqlandi! ✅");
+            xabarnoma("Vazn muvaffaqiyatli saqlandi, Abdulaziz! ✅", "success");
+            
             currentWeightDisplay.innerHTML = `${weightNum} <span>kg</span>`;
             calculateBMI(weightNum);
 
@@ -68,8 +87,8 @@ document.addEventListener('DOMContentLoaded', () => {
             commentInput.value = "";
 
         } catch (err) {
-            console.error("Xatolik tafsiloti:", err);
-            alert("Xatolik: " + err.message + ". Supabase-da 'sana' ustuni 'text' ekanligini tekshiring.");
+            console.error("Xatolik:", err);
+            xabarnoma("Xatolik yuz berdi! ❌", "error");
         } finally {
             saveBtn.innerText = "Saqlash";
             saveBtn.disabled = false;
@@ -79,11 +98,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const tabs = document.querySelectorAll('.tabs span');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            document.querySelector('.tabs .active').classList.remove('active');
+            const activeTab = document.querySelector('.tabs .active');
+            if (activeTab) activeTab.classList.remove('active');
+            
             tab.classList.add('active');
+            
+            xabarnoma(`${tab.innerText} ma'lumotlari yuklanmoqda...`, "info");
+
             const path = document.querySelector('.chart-area path');
-            const randomPath = `M0 ${Math.random() * 80 + 20} Q50 ${Math.random() * 80} 100 ${Math.random() * 80} T200 ${Math.random() * 80} T300 ${Math.random() * 80}`;
-            path.setAttribute('d', randomPath);
+            if (path) {
+                const randomPath = `M0 ${Math.random() * 80 + 20} Q50 ${Math.random() * 80} 100 ${Math.random() * 80} T200 ${Math.random() * 80} T300 ${Math.random() * 80}`;
+                path.setAttribute('d', randomPath);
+            }
         });
     });
 });

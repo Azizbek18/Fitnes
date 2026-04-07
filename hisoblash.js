@@ -1,17 +1,34 @@
-
 const SUPABASE_URL = 'https://olerglrehwbfolrsyzzo.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_9oYVfdjz9tqko55o9EZjdQ_AXWhvvhu';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 document.addEventListener('DOMContentLoaded', () => {
     const addBtn = document.querySelector('.search button');
-    const searchInput = document.getElementById('ovqat'); // HTML dagi id="ovqat"
+    const searchInput = document.getElementById('ovqat'); 
     const leftContent = document.querySelector('.left');
     const calorieText = document.querySelector('.circle-text h2');
     const progressCircle = document.querySelector('.progress');
+    const xabarCon = document.querySelector(".xabar-con");
 
     let totalCalories = 1240;
     const dailyGoal = 2000;
+
+    function xabarnoma(xabar, turi) {
+        if (!xabarCon) return;
+
+        let xabarMatn = document.createElement('div');
+        xabarMatn.classList.add("xabar", turi);
+        xabarMatn.innerText = xabar;
+
+        xabarCon.appendChild(xabarMatn);
+
+        setTimeout(() => {
+            xabarMatn.style.opacity = '0';
+            xabarMatn.style.transform = 'translateX(20px)';
+            xabarMatn.style.transition = '0.5s all ease';
+            setTimeout(() => xabarMatn.remove(), 500);
+        }, 4000);
+    }
 
     function updateCircle() {
         const radius = 70;
@@ -26,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const foodName = searchInput.value.trim();
 
         if (foodName === "") {
-            alert("Ovqat nomini yozing!");
+            xabarnoma("Iltimos, ovqat nomini yozing! ⚠️", "info");
             return;
         }
 
@@ -44,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (error) throw error;
 
-            alert("Muvaffaqiyatli qo'shildi!");
+            xabarnoma("Muvaffaqiyatli qo'shildi! ✅", "success");
 
             totalCalories += kcal;
 
@@ -71,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
             updateCircle();
 
         } catch (err) {
-            console.error("Xatolik tafsiloti:", err.message);
-            alert("Xatolik yuz berdi: " + err.message);
+            console.error("Xatolik:", err.message);
+            xabarnoma("Xatolik yuz berdi: " + err.message, "error");
         }
     });
 
