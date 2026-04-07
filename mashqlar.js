@@ -1,13 +1,33 @@
 document.addEventListener('DOMContentLoaded', () => {
     const daySpans = document.querySelectorAll('.days span');
-    
+    const xabarCon = document.querySelector(".xabar-con");
+
+    // --- 1. XABARNOMA FUNKSIYASI ---
+    function xabarnoma(xabar, turi) {
+        if (!xabarCon) return;
+
+        let xabarMatn = document.createElement('div');
+        xabarMatn.classList.add("xabar", turi);
+        xabarMatn.innerText = xabar;
+
+        xabarCon.appendChild(xabarMatn);
+
+        setTimeout(() => {
+            xabarMatn.style.opacity = '0';
+            xabarMatn.style.transition = '0.5s';
+            setTimeout(() => xabarMatn.remove(), 500);
+        }, 4000);
+    }
+
     daySpans.forEach(day => {
         day.style.cursor = 'pointer';
         day.addEventListener('click', () => {
-            document.querySelector('.days .active').classList.remove('active');
+            const activeDay = document.querySelector('.days .active');
+            if (activeDay) activeDay.classList.remove('active');
+            
             day.classList.add('active');
             
-            console.log(`${day.innerText} kunidagi mashqlar yuklanmoqda...`);
+            xabarnoma(`${day.innerText} kunidagi mashqlar yuklandi 📅`, "info");
         });
     });
 
@@ -17,6 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
     startBtn.addEventListener('click', () => {
         if (!isTraining) {
             isTraining = true;
+            xabarnoma("Mashg'ulot boshlandi! Omad, Abdulaziz! 💪", "success");
+
             startBtn.innerText = "Mashq bajarilmoqda... 00:00";
             startBtn.style.background = "#2ecc71";
             
@@ -33,10 +55,13 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1000);
 
             startBtn.addEventListener('dblclick', () => {
-                isTraining = false;
-                startBtn.innerText = "Mashq tugatildi ✅";
-                startBtn.style.background = "#3498db";
-                alert("Abdulaziz, bugungi mashg'ulot yakunlandi! Ofarin! 🔥");
+                if (isTraining) {
+                    isTraining = false;
+                    startBtn.innerText = "Mashq tugatildi ✅";
+                    startBtn.style.background = "#3498db";
+                    
+                    xabarnoma("Abdulaziz, bugungi mashg'ulot yakunlandi! Ofarin! 🔥🏆", "success");
+                }
             });
         }
     });
@@ -51,7 +76,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         otherDetail.open = false;
                     }
                 });
-                
                 detail.style.boxShadow = "0 5px 15px rgba(0,0,0,0.1)";
                 detail.style.transition = "0.3s";
             } else {

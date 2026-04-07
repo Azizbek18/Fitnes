@@ -1,3 +1,26 @@
+const xabarCon = document.querySelector(".xabar-con");
+
+function xabarnoma(xabar, turi) {
+    if (!xabarCon) return;
+
+    let xabarMatn = document.createElement('div');
+    xabarMatn.classList.add("xabar", turi);
+    xabarMatn.innerText = xabar;
+
+    xabarCon.appendChild(xabarMatn);
+
+    setTimeout(() => {
+        xabarMatn.style.opacity = '0';
+        xabarMatn.style.transform = 'translateX(20px)';
+        xabarMatn.style.transition = '0.5s all ease';
+        setTimeout(() => xabarMatn.remove(), 500);
+    }, 4000);
+}
+
+const SUPABASE_URL = 'https://olerglrehwbfolrsyzzo.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_9oYVfdjz9tqko55o9EZjdQ_AXWhvvhu';
+const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
 document.addEventListener('DOMContentLoaded', () => {
     const weightInput = document.querySelector('.form input');
     const commentInput = document.querySelector('.form textarea');
@@ -18,56 +41,75 @@ document.addEventListener('DOMContentLoaded', () => {
         bmiDisplay.innerHTML = `${bmi} <span class="status" style="color: ${color}">${status}</span>`;
     }
 
-    saveBtn.addEventListener('click', () => {
-        const weight = parseFloat(weightInput.value);
-        const comment = commentInput.value;
-        const date = new Date().toLocaleDateString('uz-UZ', { day: 'numeric', month: 'long' });
+    saveBtn.addEventListener('click', async () => {
+        const weightValue = weightInput.value.trim();
+        const comment = commentInput.value.trim();
+        const dateStr = new Date().toLocaleDateString('uz-UZ', { day: 'numeric', month: 'long' });
 
-        if (!weight) {
-            alert("Iltimos, vazningizni kiriting!");
+        if (!weightValue) {
+            xabarnoma("Iltimos, vazningizni kiriting! ⚠️", "error");
             return;
         }
+
+        const weightNum = Math.round(parseFloat(weightValue));
 
         saveBtn.innerText = "Saqlanmoqda...";
         saveBtn.disabled = true;
 
-        setTimeout(() => {
-            currentWeightDisplay.innerHTML = `${weight} <span>kg</span>`;
-            calculateBMI(weight);
+        try {
+            const { error } = await _supabase
+                .from('vazn') 
+                .insert([
+                    { 
+                        sana: dateStr,
+                        vazn: weightNum,
+                        ozgarishi: 0,
+                        izoh: comment || "Izoh yo'q"
+                    }
+                ]);
+
+            if (error) throw error;
+
+            xabarnoma("Vazn muvaffaqiyatli saqlandi, Abdulaziz! ✅", "success");
+            
+            currentWeightDisplay.innerHTML = `${weightNum} <span>kg</span>`;
+            calculateBMI(weightNum);
 
             const newRow = table.insertRow(1);
             newRow.innerHTML = `
-                <td>${date}</td>
-                <td>${weight} kg</td>
-                <td class="minus">-0.0</td>
+                <td>${dateStr}</td>
+                <td>${weightNum} kg</td>
+                <td class="minus">0</td>
                 <td>${comment || "Izoh yo'q"}</td>
             `;
 
             weightInput.value = "";
             commentInput.value = "";
+
+        } catch (err) {
+            console.error("Xatolik:", err);
+            xabarnoma("Xatolik yuz berdi! ❌", "error");
+        } finally {
             saveBtn.innerText = "Saqlash";
             saveBtn.disabled = false;
-
-            alert("Vazn muvaffaqiyatli saqlandi! 📉");
-        }, 800);
+        }
     });
 
     const tabs = document.querySelectorAll('.tabs span');
     tabs.forEach(tab => {
         tab.addEventListener('click', () => {
-            document.querySelector('.tabs .active').classList.remove('active');
+            const activeTab = document.querySelector('.tabs .active');
+            if (activeTab) activeTab.classList.remove('active');
+            
             tab.classList.add('active');
+            
+            xabarnoma(`${tab.innerText} ma'lumotlari yuklanmoqda...`, "info");
 
-            // Grafik yo'lini (path) biroz o'zgartirish (effekt uchun)
             const path = document.querySelector('.chart-area path');
-            const randomPath = `M0 ${Math.random() * 100} Q50 ${Math.random() * 100} 100 ${Math.random() * 100} T200 ${Math.random() * 100} T300 ${Math.random() * 100}`;
-            path.setAttribute('d', randomPath);
+            if (path) {
+                const randomPath = `M0 ${Math.random() * 80 + 20} Q50 ${Math.random() * 80} 100 ${Math.random() * 80} T200 ${Math.random() * 80} T300 ${Math.random() * 80}`;
+                path.setAttribute('d', randomPath);
+            }
         });
-    });
-
-    // 5. Foto qo'shish tugmasi
-    const addPhotoBtn = document.querySelector('.photo.add');
-    addPhotoBtn.addEventListener('click', () => {
-        alert("Tez orada: Abdulaziz, bu yerga rasmingizni yuklash funksiyasi qo'shiladi! 📸");
     });
 });
