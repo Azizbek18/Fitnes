@@ -15,7 +15,6 @@ body {
 }
 
 .sidebar {
-    width: 80px;
     background: #fff;
     box-shadow: 5px 0 20px rgba(0, 0, 0, 0.05);
     display: flex;
@@ -58,6 +57,7 @@ body {
 .main {
     flex: 1;
     padding: 20px;
+    overflow-y: scroll;
 }
 
 .header {
@@ -86,6 +86,11 @@ body {
 
 .left {
     flex: 2;
+    height: 90vh;
+    overflow-y: scroll;
+    scroll-behavior: smooth;
+    scroll-snap-type: y mandatory;
+    scrollbar-width: none;
 }
 
 .search {
@@ -117,8 +122,19 @@ body {
     border-radius: 16px;
     margin-bottom: 15px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    animation: chiq linear both;
+    animation-timeline: view(block);
+    animation-range: cover 0% cover 30%;
 }
-
+@keyframes chiq{
+    0%{
+        transform: scale(0.4);
+    }
+    
+    100%{
+        transform: scale(1);
+    }
+}
 .card-title {
     display: flex;
     justify-content: space-between;
@@ -300,29 +316,101 @@ body {
 }
 
 
-@media (max-width: 850px) {
+@media (max-width: 1024px) {
+
   .content {
     flex-direction: column;
   }
-  .right {
-    order: -1;
-    margin-bottom: 20px;
+
+  .left {
+    height: auto;
+    overflow: visible;
   }
-  .circle-card {
-    max-width: 300px;
-    margin: 0 auto 20px;
+
+  .right {
+    width: 100%;
+  }
+
+  .cups {
+    flex-wrap: wrap;
+  }
+
+  .cup {
+    width: 70px;
+    height: 60px;
   }
 }
 
-@media (max-width: 480px) {
-  .search {
-    flex-direction: column;
-  }
-  .cups {
-    justify-content: space-around;
-  }
-  .cup {
-    width: 60px;
-    height: 60px;
-  }
+
+@media (max-width: 768px) {
+    .app {
+        display: flex; 
+        flex-direction: row; 
+    }
+
+    .sidebar {
+        width: 65px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+        padding: 15px 0;
+        flex-direction: column; 
+        justify-content: flex-start;
+    }
+
+    .logo {
+        display: flex;
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+        margin-bottom: 30px;
+    }
+
+    .sidebar nav {
+        flex-direction: column;
+        gap: 25px;
+    }
+
+    .sidebar nav a {
+        padding: 0;
+        width: auto;
+        height: auto;
+        font-size: 20px; 
+    }
+
+    .main {
+        padding: 20px 15px;
+        width: calc(100% - 65px);
+    }
+
+    .content {
+        flex-direction: column;
+    }
+
+    .hero-card {
+        padding: 20px;
+    }
+
+    .hero-card h2 {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 390px) {
+    .sidebar {
+        width: 55px; 
+    }
+
+    .main {
+        width: calc(100% - 55px);
+        padding: 15px 10px;
+    }
+
+    .sidebar nav {
+        gap: 20px;
+    }
+
+    .sidebar nav a {
+        font-size: 18px;
+    }
 }

@@ -14,13 +14,12 @@ body {
 }
 
 .sidebar {
-  width: 80px;
-  height: 780px;
   background: #fff;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px 0;
+  padding: 30px 15px;
 }
 
 .logo {
@@ -39,6 +38,7 @@ body {
   list-style: none;
   margin-top: 40px;
 }
+
 .sidebar a {
   margin: 20px 0;
   width: 30px;
@@ -55,6 +55,7 @@ body {
 .main {
   flex: 1;
   padding: 20px;
+  overflow-y: scroll;
 }
 
 .header {
@@ -163,13 +164,13 @@ summary {
   padding: 10px;
 }
 
-summary span{
-    color: #AB350080;
+summary span {
+  color: #AB350080;
 }
 
-summary img{
-    width: 50px;
-    border-radius: 10px;
+summary img {
+  width: 50px;
+  border-radius: 10px;
 }
 
 summary::after {
@@ -187,53 +188,58 @@ details p {
   color: #555;
 }
 
-.xabar-con{
-    position: fixed;
-    top: 30px;
-    right: 30px;
+.xabar-con {
+  position: fixed;
+  top: 30px;
+  right: 30px;
 }
 
-.xabar{
-    width: 400px;
-    padding: 15px 20px;
-    color: white;
-    border-radius: 10px;
-    margin: 10px 0px;
+.xabar {
+  width: 400px;
+  padding: 15px 20px;
+  color: white;
+  border-radius: 10px;
+  margin: 10px 0px;
 
-    animation: kirish 1s ease, chiqish 1s ease 2s forwards;
+  animation: kirish 1s ease, chiqish 1s ease 2s forwards;
 }
 
 
 
-.error{
-    background-color: red;
-}
-.success{
-    background-color: rgb(0, 209, 0);
-} 
-.info{
-    background-color: skyblue;
-}
-@keyframes kirish{
-    from{
-        transform: translateX(100%);
-        opacity: 0;
-    }
-    to{
-        transform: translateX(0%);
-        opacity: 1;
-    }
+.error {
+  background-color: red;
 }
 
-@keyframes chiqish{
-    from{
-        transform: translateX(0%);
-        opacity: 1;
-    }
-    to{
-        transform: translateX(120%);
-        opacity: 0;
-    }
+.success {
+  background-color: rgb(0, 209, 0);
+}
+
+.info {
+  background-color: skyblue;
+}
+
+@keyframes kirish {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes chiqish {
+  from {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
 }
 
 
@@ -241,9 +247,11 @@ details p {
   .content {
     flex-direction: column;
   }
+
   .stats {
     flex-wrap: wrap;
   }
+
   .stat {
     height: 150px;
   }
@@ -255,12 +263,14 @@ details p {
     align-items: flex-start;
     gap: 15px;
   }
+
   .days {
     display: flex;
-    overflow-x: auto; 
+    overflow-x: auto;
     width: 100%;
     padding-bottom: 10px;
   }
+
   .days span {
     white-space: nowrap;
   }

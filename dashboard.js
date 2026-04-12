@@ -70,10 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
         "Plank mashqini to'g'ri bajarayotganingizga ishonch hosil qiling."
     ];
 
-    aiBox.addEventListener('click', () => {
+    function changeAiTip() {
         const randomTip = aiTips[Math.floor(Math.random() * aiTips.length)];
-        aiBox.querySelector('p').innerText = randomTip;
+        const pTag = aiBox.querySelector('p');
         
-        xabarnoma("Yangi maslahat!", "info");
-    });
+        if (pTag.innerText !== randomTip) {
+            pTag.innerText = randomTip;
+            xabarnoma("Yangi maslahat!", "info");
+        }
+    }
+
+    setInterval(changeAiTip, 10000);
+
+    aiBox.addEventListener('click', changeAiTip);
 });

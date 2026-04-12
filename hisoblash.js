@@ -2,7 +2,7 @@ const SUPABASE_URL = 'https://olerglrehwbfolrsyzzo.supabase.co';
 const SUPABASE_KEY = 'sb_publishable_9oYVfdjz9tqko55o9EZjdQ_AXWhvvhu';
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const addBtn = document.querySelector('.search button');
     const searchInput = document.getElementById('ovqat'); 
     const leftContent = document.querySelector('.left');
@@ -10,88 +10,79 @@ document.addEventListener('DOMContentLoaded', () => {
     const progressCircle = document.querySelector('.progress');
     const xabarCon = document.querySelector(".xabar-con");
 
-    let totalCalories = 1240;
+    let totalCalories = 0; 
     const dailyGoal = 2000;
-
-    function xabarnoma(xabar, turi) {
-        if (!xabarCon) return;
-
-        let xabarMatn = document.createElement('div');
-        xabarMatn.classList.add("xabar", turi);
-        xabarMatn.innerText = xabar;
-
-        xabarCon.appendChild(xabarMatn);
-
-        setTimeout(() => {
-            xabarMatn.style.opacity = '0';
-            xabarMatn.style.transform = 'translateX(20px)';
-            xabarMatn.style.transition = '0.5s all ease';
-            setTimeout(() => xabarMatn.remove(), 500);
-        }, 4000);
-    }
 
     function updateCircle() {
         const radius = 70;
         const circumference = 2 * Math.PI * radius;
-        const offset = circumference - (totalCalories / dailyGoal) * circumference;
+        const percent = Math.min(totalCalories / dailyGoal, 1);
+        const offset = circumference - (percent * circumference);
         progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
         progressCircle.style.strokeDashoffset = offset;
         calorieText.innerText = totalCalories.toLocaleString();
     }
 
-    addBtn.addEventListener('click', async () => {
-        const foodName = searchInput.value.trim();
+    function renderCard(foodName, kcal) {
+        const newCard = document.createElement('div');
+        newCard.className = 'card anime-in';
+        newCard.innerHTML = `
+            <div class="card-title">
+                <h3>Taom</h3>
+                <span><b>${kcal} kcal</b></span>
+            </div>
+            <ul>
+                <li>${foodName} <b>${kcal} kcal</b></li>
+            </ul>`;
+        
+        const emptyCard = document.querySelector('.card.empty');
+        if (emptyCard) {
+            leftContent.insertBefore(newCard, emptyCard);
+        } else {
+            leftContent.appendChild(newCard);
+        }
+    }
 
-        if (foodName === "") {
-            xabarnoma("Iltimos, ovqat nomini yozing! ⚠️", "info");
+    async function fetchInitialData() {
+        console.log("Ma'lumotlar yuklanmoqda...");
+        const { data, error } = await _supabase
+            .from('kaloriya')
+            .select('*');
+
+        if (error) {
+            console.error("Xatolik yuz berdi:", error.message);
             return;
         }
 
+        if (data) {
+            console.log("Bazadan kelgan ma'lumotlar:", data);
+            data.forEach(item => {
+                renderCard(item.ovqat_nomi, item.kaloriya);
+                totalCalories += item.kaloriya;
+            });
+            updateCircle();
+        }
+    }
+
+    addBtn.addEventListener('click', async () => {
+        const foodName = searchInput.value.trim();
+        if (foodName === "") return;
+
         const kcal = Math.floor(Math.random() * 400) + 50;
 
-        try {
-            const { error } = await _supabase
-                .from('kaloriya')
-                .insert([
-                    {
-                        ovqat_nomi: foodName,
-                        kaloriya: kcal
-                    }
-                ]);
+        const { error } = await _supabase
+            .from('kaloriya')
+            .insert([{ ovqat_nomi: foodName, kaloriya: kcal }]);
 
-            if (error) throw error;
-
-            xabarnoma("Muvaffaqiyatli qo'shildi! ✅", "success");
-
+        if (error) {
+            console.error("Qo'shishda xato:", error.message);
+        } else {
             totalCalories += kcal;
-
-            const newCard = document.createElement('div');
-            newCard.className = 'card anime-in';
-            newCard.innerHTML = `
-                <div class="card-title">
-                    <h3>Yangi taom</h3>
-                    <span><b>${kcal} kcal</b></span>
-                </div>
-                <ul>
-                    <li>${foodName} <b>${kcal} kcal</b></li>
-                </ul>
-            `;
-
-            const emptyCard = document.querySelector('.card.empty');
-            if (emptyCard) {
-                leftContent.insertBefore(newCard, emptyCard);
-            } else {
-                leftContent.appendChild(newCard);
-            }
-
-            searchInput.value = "";
+            renderCard(foodName, kcal);
             updateCircle();
-
-        } catch (err) {
-            console.error("Xatolik:", err.message);
-            xabarnoma("Xatolik yuz berdi: " + err.message, "error");
+            searchInput.value = "";
         }
     });
 
-    updateCircle();
+    await fetchInitialData();
 });

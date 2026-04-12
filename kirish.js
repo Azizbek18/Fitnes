@@ -40,7 +40,7 @@ async function Yuborish() {
         }
         else {
             alert("Siz ro'yhatdan o'tdingiz tabriklaymiz!!!")
-            window.location.href = 'index.html'
+            window.location.href = 'dashboard.html'
         }
     }
 

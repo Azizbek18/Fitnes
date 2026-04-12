@@ -60,6 +60,10 @@ body {
 .content {
   flex: 1;
   padding: 25px;
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+  scroll-snap-type: y mandatory;
+  height: 100vh;
 }
 
 .header {
@@ -209,6 +213,7 @@ th,
 td {
   padding: 10px;
   font-size: 14px;
+  text-align: center;
 }
 
 .plus {
